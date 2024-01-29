@@ -32,5 +32,5 @@ def create_users_table(db_file):
 # Specify the name of your SQLite database file
 db_file = "database.db"
 
-# Call the function to create the 'users' table
+# Call the function to create the 'Users' table
 create_users_table(db_file)
