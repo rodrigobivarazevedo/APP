@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="container mt-5">
+    <h1>User List</h1>
+    
+    <!-- Bootstrap List Group -->
+    <ul class="list-group">
+        {% for user in users %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {% if user == "No users found" %}
+                    <span>{{ user }}</span>
+                {% else %}
+                    <span>Name: {{ user.First_name }} {{ user.Last_name }} - Email: {{ user.Email }}</span>
+                    <span class="badge badge-primary badge-pill">{{ user.Role }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    
+    <!-- Bootstrap Buttons -->
+    <a class="btn btn-primary mt-3" href="{{ url_for('add_user') }}">Add User</a>
+    <a class="btn btn-secondary mt-3" href="{{ url_for('generate_fake_users') }}">Generate Fake Users</a>
+
+    <!-- Bootstrap JS and Popper.js scripts (required for some Bootstrap features) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
