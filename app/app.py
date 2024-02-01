@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from faker import Faker
 import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.dirname(__file__), 'db', 'database.db')
 db = SQLAlchemy(app)
-fake = Faker()
+
+app.secret_key = 'secret_key'
 
 class Books(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
@@ -17,7 +17,9 @@ class Books(db.Model):
 @app.route('/')
 def books():
     book_list = Books.query.all()
-    return render_template('books.html', books=book_list)
+    if not book_list:
+        book_list = "No books found"
+    return render_template('books.html', book_list=book_list)
 
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
@@ -29,7 +31,7 @@ def add_book():
         new_book = Books(Title=title, Author=author, Pub_year=pub_year)
         db.session.add(new_book)
         db.session.commit()
-
+        flash(f"Added {title} by {author} successfully!", 'success')
         return redirect(url_for('books'))
 
     return render_template('add_book.html')
